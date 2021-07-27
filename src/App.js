@@ -26,7 +26,6 @@ function App() {
     },
     [isLoading, hasMore],
   );
-  console.log(isLoading);
 
   useEffect(() => {
     setIsLoading(true);

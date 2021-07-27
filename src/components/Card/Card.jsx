@@ -14,7 +14,6 @@ const Card = ({ data, lastElementRef, isLoading }) => {
               <div>
                 <strong ref={lastElementRef}>Comment Id</strong> <span>{item.name}</span>
               </div>
-
               <div>
                 <strong>Email </strong>
                 <span>{item.email} </span>
