@@ -26,6 +26,9 @@ function InfiniteScrollList() {
   }, [pageNumber]);
 
   const onIntersect = entries => {
+    if (entries[0].boundingClientRect.height !== 0) {
+      return;
+    }
     entries.forEach(entry => {
       if (entry.isIntersecting && hasMore) {
         setPageNumber(prev => prev + 1);
@@ -50,9 +53,9 @@ function InfiniteScrollList() {
         {commentLists.map(item => (
           <CommentCard key={item.id} item={item} />
         ))}
-        <div ref={loader} className="loader">
-          {isLoading && "Loading..."}
-        </div>
+      </div>
+      <div ref={loader} className="loader">
+        {isLoading && "Loading..."}
       </div>
     </>
   );
