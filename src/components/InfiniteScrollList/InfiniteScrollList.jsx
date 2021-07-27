@@ -13,9 +13,11 @@ function InfiniteScrollList() {
   const observer = useRef();
 
   const lastElementRef = useCallback(
+      //console.log(node) 마지막 노드를 출력한다. 
     node => {
       if (isLoading) return;
       if (observer.current) observer.current.disconnect();
+      //최근 observer를 갖기위해 이전 observer disconnect 해주기
       observer.current = new IntersectionObserver(entries => {
         // isIntersecting : 화면 노출 여부확인
         if (entries[0].isIntersecting && hasMore) {
