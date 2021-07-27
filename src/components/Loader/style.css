@@ -25,7 +25,7 @@
   left: 0;
   width: 300px;
   height: 100%;
-  background: linear-gradient(to right, #ffffff, rgb(167, 167, 167), #f2f2f2);
+  background: linear-gradient(to right, #ffffff, rgb(233, 233, 233), #f2f2f2);
   animation: loading 2s infinite linear;
 }
 

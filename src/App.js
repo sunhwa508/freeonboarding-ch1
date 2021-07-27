@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useCallback, useRef, useState, useEffect } from "react";
-import "./App.css";
+import axios from "axios";
 import Card from "./components/Card/Card";
+import "./App.css";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +15,6 @@ function App() {
 
   const lastElementRef = useCallback(
     node => {
-      console.log(node, observer);
       if (isLoading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(entries => {

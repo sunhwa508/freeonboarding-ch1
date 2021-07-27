@@ -16,4 +16,11 @@ export const CardWrapper = styled.div`
   border-radius: 20px;
   margin-bottom: 14px;
   padding: 20px;
+  & div {
+    margin-bottom: 12px;
+  }
+`;
+
+export const Title = styled.strong`
+  margin-bottom: 12px;
 `;
