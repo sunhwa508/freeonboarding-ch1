@@ -7,10 +7,10 @@ const Card = ({ data, lastElementRef, isLoading }) => {
     <Styled.Wrapper>
       {isLoading
         ? new Array(10).fill(1).map((_, i) => {
-            return <Loader />;
+            return <Loader key={i} />;
           })
         : data.map((item, index) => (
-            <Styled.CardWrapper key={item.id_index}>
+            <Styled.CardWrapper key={item.id + index}>
               <div>
                 <strong ref={lastElementRef}>Comment Id</strong> <span>{item.name}</span>
               </div>
