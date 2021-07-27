@@ -1,7 +1,10 @@
 # 프리온보딩 과제
 
+![화면 기록 2021-07-27 오전 11 44 48](https://user-images.githubusercontent.com/61695175/127087509-57fd461d-b1b8-48bb-835c-d0637ad3c7f8.gif)
+
 ## 설치 및 시작하는 법
 
+이 프로젝트는 Create React App으로 생성되었습니다.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## 실행 가능한 스크립트
@@ -36,3 +39,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - style 전체 영역에 제공되는 stylesheet
 
 ## 배포
+
+Netlify 무료배포 사이트를 아용하였습니다.
+
+> https://festive-galileo-65abe1.netlify.app/
