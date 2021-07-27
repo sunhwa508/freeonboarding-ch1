@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import Card from "../Card/Card";
+import CommentCard from "../CommentCard/CommentCard";
 
 function InfiniteScrollList() {
   const [isLoading, setIsLoading] = useState(true);
@@ -46,8 +46,14 @@ function InfiniteScrollList() {
 
   return (
     <>
-      <Card commentLists={commentLists} />
-      <div ref={loader}>{isLoading && "loading"} </div>
+      <div className="content-container">
+        {commentLists.map(item => (
+          <CommentCard key={item.id} item={item} />
+        ))}
+        <div ref={loader} className="loader">
+          {isLoading && "Loading..."}
+        </div>
+      </div>
     </>
   );
 }
