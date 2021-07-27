@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -16,11 +16,12 @@ export const CardWrapper = styled.div`
   border-radius: 20px;
   margin-bottom: 14px;
   padding: 20px;
+  font-size: 18px;
+
   & div {
     margin-bottom: 12px;
   }
-`;
-
-export const Title = styled.strong`
-  margin-bottom: 12px;
+  & span {
+    color: #212529;
+  }
 `;

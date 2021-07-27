@@ -12,16 +12,16 @@ const Card = ({ data, lastElementRef, isLoading }) => {
         : data.map((item, index) => (
             <Styled.CardWrapper key={item.id + index}>
               <div>
-                <strong ref={lastElementRef}>Comment Id</strong> <span>{item.name}</span>
+                <strong ref={lastElementRef}>Comment Id</strong>
+                <span> {item.id}</span>
               </div>
               <div>
                 <strong>Email </strong>
                 <span>{item.email} </span>
               </div>
-              <div>
-                <strong>Comment</strong>
-                <p>{item.body}</p>
-              </div>
+              <strong>Comment</strong>
+              <br />
+              <span>{item.body}</span>
             </Styled.CardWrapper>
           ))}
     </Styled.Wrapper>

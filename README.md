@@ -1,6 +1,6 @@
 # [Assignment 1] 하얀마인드 과제
 
-![화면 기록 2021-07-27 오전 11 44 48](https://user-images.githubusercontent.com/61695175/127087509-57fd461d-b1b8-48bb-835c-d0637ad3c7f8.gif)
+![화면 기록 2021-07-27 오후 1 28 22](https://user-images.githubusercontent.com/61695175/127095507-a8631d27-8841-47ff-9ea9-17d3746b12bd.gif)
 
 ## 설치 및 시작하는 법
 

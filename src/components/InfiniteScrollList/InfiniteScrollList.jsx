@@ -17,6 +17,7 @@ function InfiniteScrollList() {
       if (isLoading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(entries => {
+        // isIntersecting : 화면 노출 여부확인
         if (entries[0].isIntersecting && hasMore) {
           setPageNumber(prevPageNumber => prevPageNumber + 1);
         }
@@ -30,11 +31,17 @@ function InfiniteScrollList() {
     setIsLoading(true);
     setError(false);
 
-    axios.get(`https://jsonplaceholder.typicode.com/comments?_page=${pageNumber}&_limit=10`).then(res => {
-      setTimeout(() => setIsLoading(false), 500);
-      setData(prevData => [...prevData, ...res.data]);
-      setHasMore(pageNumber !== limit);
-    });
+    axios
+      .get(`https://jsonplaceholder.typicode.com/comments?_page=${pageNumber}&_limit=10`)
+      .then(res => {
+        setTimeout(() => setIsLoading(false), 500);
+        setData(prevData => [...prevData, ...res.data]);
+        setHasMore(pageNumber !== limit);
+      })
+      .catch(err => {
+        console.warn(err);
+        setError(true);
+      });
   }, [pageNumber]);
 
   return <Card data={data} isLoading={isLoading} lastElementRef={lastElementRef} />;
