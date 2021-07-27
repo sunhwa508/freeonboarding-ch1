@@ -11,13 +11,13 @@ export const Container = styled.li`
 `;
 
 const Fade = keyframes`
-    \0% {
+  \0% {
 		transform: translateX(0);
 	}
-	 \50%{
-        transform: translateX(220px);
-    }
-	 \100% {
+	\50%{
+    transform: translateX(220px);
+  }
+	\100% {
 		transform: translateX(460px);
 	}
 `;
