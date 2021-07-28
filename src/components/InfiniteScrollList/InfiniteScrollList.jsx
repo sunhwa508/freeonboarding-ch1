@@ -1,15 +1,13 @@
 import React, { useCallback, useRef, useState, useEffect } from "react";
-
 import axios from "axios";
 import Card from "../Card/Card";
 
 function InfiniteScrollList() {
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
-  const [limit, setLimit] = useState(50);
+  const LIMIT_PAGE = 50;
 
   const observer = useRef();
 
@@ -36,11 +34,10 @@ function InfiniteScrollList() {
       .then(res => {
         setTimeout(() => setIsLoading(false), 500);
         setData(prevData => [...prevData, ...res.data]);
-        setHasMore(pageNumber !== limit);
+        setHasMore(pageNumber !== LIMIT_PAGE);
       })
       .catch(err => {
         console.warn(err);
-        setError(true);
       });
   }, [pageNumber]);
 
