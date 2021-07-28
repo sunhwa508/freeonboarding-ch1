@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import CommentCard from "../CommentCard/CommentCard";
 
@@ -11,6 +11,7 @@ function InfiniteScrollList() {
   const PAGE_LIMIT = 50;
 
   const getCommentList = () => {
+    setIsLoading(true);
     axios
       .get(`https://jsonplaceholder.typicode.com/comments?_page=${pageNumber}&_limit=10`)
       .then(response => {
@@ -26,14 +27,9 @@ function InfiniteScrollList() {
   }, [pageNumber]);
 
   const onIntersect = entries => {
-    if (entries[0].boundingClientRect.height !== 0) {
-      return;
+    if (entries[0].isIntersecting && hasMore) {
+      setPageNumber(prev => prev + 1);
     }
-    entries.forEach(entry => {
-      if (entry.isIntersecting && hasMore) {
-        setPageNumber(prev => prev + 1);
-      }
-    });
   };
 
   useEffect(() => {
@@ -42,10 +38,11 @@ function InfiniteScrollList() {
       rootMargin: "0px",
       threshold: 0,
     };
+
     const observer = new IntersectionObserver(onIntersect, options);
-    observer.observe(loader.current);
+    if (!isLoading) observer.observe(loader.current);
     return () => observer.disconnect();
-  }, [loader]);
+  }, [loader, isLoading]);
 
   return (
     <>
@@ -55,7 +52,7 @@ function InfiniteScrollList() {
         ))}
       </div>
       <div ref={loader} className="loader">
-        {isLoading && "Loading..."}
+        {isLoading && "loading..."}
       </div>
     </>
   );
