@@ -1,23 +1,26 @@
-import React from "react";
-import { CommentCardStyled } from "./CommentCard.styles";
+import React from 'react';
+import shortid from 'shortid';
+import * as Styled from "./CommentCard.styles";
+import Loader from "../Loader/Loader";
 
-const CommentCard = ({ item }) => {
-  return (
-    <CommentCardStyled>
-      <div className="comment-id">
-        <span className="comment-id-title">Comment Id</span>
-        <span className="comment-id-content">{item.id}</span>
-      </div>
-      <div className="comment-email">
-        <span className="comment-email-title">Email</span>
-        <span className="comment-email-content">{item.email}</span>
-      </div>
-      <div className="comment-body">
-        <span className="comment-body-title">Comment</span>
-        <div className="comment-body-content">{item.body}</div>
-      </div>
-    </CommentCardStyled>
-  );
+
+const CommentCard = ({ data, lastElementRef, isLoading }) => {
+	return (
+		<Styled.Wrapper>
+			{isLoading
+				? new Array(10).fill(1).map((_, i) => {
+						return <Loader key={shortid.generate()}/>;
+				  })
+				: data.map((item) => (
+						<Styled.CardWrapper key={shortid.generate()}>
+							<p ref={lastElementRef}>Comment Id {item.id}</p>
+							<p>Email {item.email}</p>
+							<p>Comment</p>
+							<p>{item.body}</p>
+						</Styled.CardWrapper>
+				  ))}
+		</Styled.Wrapper>
+	);
 };
 
 export default CommentCard;

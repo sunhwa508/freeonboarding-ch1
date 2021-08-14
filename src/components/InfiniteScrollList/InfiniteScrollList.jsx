@@ -1,61 +1,46 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import axios from "axios";
 import CommentCard from "../CommentCard/CommentCard";
+import {BASE_URL, LIMIT_PAGE} from '../../constants'
 
 function InfiniteScrollList() {
   const [isLoading, setIsLoading] = useState(true);
-  const [commentLists, setCommentLists] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const [pageNumber, setPageNumber] = useState(1);
-  const loader = useRef(null);
-  const PAGE_LIMIT = 50;
+  const [data, setData] = useState([]);
+  const [hasMore, setHasMore] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);  
 
-  const getCommentList = () => {
-    setIsLoading(true);
-    axios
-      .get(`https://jsonplaceholder.typicode.com/comments?_page=${pageNumber}&_limit=10`)
-      .then(response => {
-        setIsLoading(false);
-        setCommentLists(items => [...items, ...response.data]);
-        setHasMore(pageNumber !== PAGE_LIMIT);
-      })
-      .catch(error => console.warn(error));
-  };
+  const observer = useRef();
+
+  const lastElementRef = useCallback(
+    node => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPageNumber(prevPageNumber => prevPageNumber + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasMore],
+  );
 
   useEffect(() => {
-    getCommentList();
+    setIsLoading(true);
+
+    axios
+      .get(`${BASE_URL.development}comments?_page=${pageNumber}&_limit=10`)
+      .then(res => {
+        setTimeout(() => setIsLoading(false), 500);
+        setData(prevData => [...prevData, ...res.data]);
+        setHasMore(pageNumber !== LIMIT_PAGE);
+      })
+      .catch(err => {
+        console.warn(err);
+      });
   }, [pageNumber]);
 
-  const onIntersect = entries => {
-    if (entries[0].isIntersecting && hasMore) {
-      setPageNumber(prev => prev + 1);
-    }
-  };
-
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0,
-    };
-
-    const observer = new IntersectionObserver(onIntersect, options);
-    if (!isLoading) observer.observe(loader.current);
-    return () => observer.disconnect();
-  }, [loader, isLoading]);
-
-  return (
-    <>
-      <div className="content-container">
-        {commentLists.map(item => (
-          <CommentCard key={item.id} item={item} />
-        ))}
-      </div>
-      <div ref={loader} className="loader">
-        {isLoading && "loading..."}
-      </div>
-    </>
-  );
+  return <CommentCard data={data} isLoading={isLoading} lastElementRef={lastElementRef} />;
 }
 
 export default InfiniteScrollList;
