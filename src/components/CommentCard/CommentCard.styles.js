@@ -16,4 +16,8 @@ export const CardWrapper = styled.div`
   border-radius: 20px;
   margin-bottom: 14px;
   padding: 20px;
+
+    & p {
+      margin:10px 0;
+    }
 `;

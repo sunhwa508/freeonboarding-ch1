@@ -13,9 +13,9 @@ const CommentCard = ({ data, lastElementRef, isLoading }) => {
 				  })
 				: data.map((item) => (
 						<Styled.CardWrapper key={shortid.generate()}>
-							<p ref={lastElementRef}>Comment Id {item.id}</p>
-							<p>Email {item.email}</p>
-							<p>Comment</p>
+							<p ref={lastElementRef}><b>Comment Id</b> {item.id}</p>
+							<p><b>Email</b> {item.email}</p>
+							<p><b>Comment</b></p>
 							<p>{item.body}</p>
 						</Styled.CardWrapper>
 				  ))}

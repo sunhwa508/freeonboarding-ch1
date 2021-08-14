@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState, useEffect } from "react";
 import axios from "axios";
 import CommentCard from "../CommentCard/CommentCard";
-import {BASE_URL, LIMIT_PAGE} from '../../constants'
+import {BASE_URL, LIMIT_PAGE, LIMIT_COMMENT} from '../../constants'
 
 function InfiniteScrollList() {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +29,7 @@ function InfiniteScrollList() {
     setIsLoading(true);
 
     axios
-      .get(`${BASE_URL.development}comments?_page=${pageNumber}&_limit=10`)
+      .get(`${BASE_URL.development}comments?_page=${pageNumber}&_limit=${LIMIT_COMMENT}`)
       .then(res => {
         setTimeout(() => setIsLoading(false), 500);
         setData(prevData => [...prevData, ...res.data]);
